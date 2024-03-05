@@ -5,141 +5,134 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
+  TextInput,
   Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const [input, setInput] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  const signIn = () => {
+    signInWithEmailAndPassword(auth, input, password).then(
+      (userCredentials) => {
+        console.log(userCredentials);
+        const user = userCredentials.user;
+        console.log("Logged in as ", user.email);
+      }
+    );
+  };
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "black", alignItems: "center" }}
-    >
-      <View style={{ alignItems: "center", margin: 20 }}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.logoContainer}>
         <Image
-          style={{
-            height: 40,
-            resizeMode: "contain",
-          }}
+          style={styles.logo}
           source={require("../assets/images/Netflix_Logo.png")}
         />
       </View>
-      <KeyboardAvoidingView
-        style={{
-          padding: 20,
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1,
-        }}
-      >
-        <View style={{ alignSelf: "center" }}>
-          <Input
+
+      <KeyboardAvoidingView style={styles.keyboardContainer}>
+        <View>
+          <TextInput
             value={input}
             onChangeText={(text) => setInput(text)}
-            type="email"
             placeholder="Email or phone number"
             placeholderTextColor="white"
-            inputContainerStyle={{
-              borderBottomWidth: 0,
-              width: 360,
-            }}
-            inputStyle={{
-              padding: 15,
-              borderRadius: 5,
-              color: "white",
-              backgroundColor: "gray",
-            }}
+            style={styles.input}
           />
 
-          <Input
+          <TextInput
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             placeholder="Password"
             placeholderTextColor="white"
-            inputContainerStyle={{
-              borderBottomWidth: 0,
-              width: 360,
-            }}
-            inputStyle={{
-              padding: 15,
-              borderRadius: 5,
-              color: "white",
-              backgroundColor: "gray",
-            }}
+            style={styles.input}
           />
         </View>
 
-        <TouchableOpacity
-          style={
-            password.length > 4
-              ? {
-                  alignSelf: "center",
-                  width: 360,
-                  paddingVertical: 12,
-                  backgroundColor: "red",
-                  borderColor: "red",
-                  borderWidth: 2,
-                  borderRadius: 5,
-                }
-              : {
-                  alignSelf: "center",
-                  width: 360,
-                  paddingVertical: 12,
-                  borderColor: "white",
-                  borderWidth: 2,
-                  borderRadius: 5,
-                }
+        <Pressable
+          onPress={() =>
+            navigation.navigate("Register", {
+              email: input,
+              password: password,
+            })
           }
+          style={[
+            styles.signInButton,
+            {
+              backgroundColor: password.length > 4 ? "red" : "transparent",
+              borderColor: password.length > 4 ? "red" : "white",
+            },
+          ]}
         >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "700",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            Sign In
-          </Text>
-        </TouchableOpacity>
+          <Text style={styles.signInButtonText}>Sign In</Text>
+        </Pressable>
 
-        <Text
-          style={{
-            fontSize: 17,
-            fontWeight: "600",
-            color: "white",
-            textAlign: "center",
-            marginTop: 30,
-          }}
-        >
-          Forgot password?
-        </Text>
+        <Text style={styles.forgotPassword}>Forgot password?</Text>
 
         <Pressable onPress={() => navigation.navigate("Register")}>
-          <Text
-            style={{
-              fontSize: 17,
-              fontWeight: "600",
-              color: "white",
-              textAlign: "center",
-              marginTop: 30,
-            }}
-          >
-            New to Netflix? Sign up now.
-          </Text>
+          <Text style={styles.signUp}>New to Netflix? Sign up now.</Text>
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
-export default LoginScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "black",
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  logoContainer: {
+    alignItems: "center",
+  },
+  logo: {
+    height: 35,
+    resizeMode: "contain",
+  },
+  keyboardContainer: {
+    justifyContent: "center",
+    flex: 1,
+  },
+  input: {
+    padding: 15,
+    borderRadius: 5,
+    color: "white",
+    backgroundColor: "gray",
+    marginBottom: 20,
+    fontSize: 17,
+  },
+  signInButton: {
+    paddingVertical: 12,
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  signInButtonText: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "white",
+    textAlign: "center",
+  },
+  forgotPassword: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center",
+    marginTop: 30,
+  },
+  signUp: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: "white",
+    textAlign: "center",
+    marginTop: 30,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default LoginScreen;
