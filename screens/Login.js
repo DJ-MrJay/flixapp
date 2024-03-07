@@ -72,7 +72,7 @@ const LoginScreen = () => {
             >
               Loading
             </Text>
-            <ActivityIndicator size="large" color={"red"} />
+            <ActivityIndicator size="large" color={"red"}/>
           </View>
         ) : (
           <>

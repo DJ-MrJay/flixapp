@@ -5,11 +5,12 @@ import { auth } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { MovieItems } from "../Context";
 
 const ProfileScreen = () => {
-  //   const navigation = useNavigation();
-  //   const { profile, setProfile } = useContext();
-  //   console.log("Selected profile is ", profile);
+  const navigation = useNavigation();
+  const { profile, setProfile } = useContext(MovieItems);
+  console.log("Selected profile is ", profile);
   const profileNames = [
     {
       id: "0",
@@ -45,6 +46,7 @@ const ProfileScreen = () => {
         console.log(error);
       });
   };
+
   return (
     <SafeAreaView
       style={{
