@@ -6,7 +6,6 @@ import {
   View,
   ScrollView,
 } from "react-native";
-// import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import plans from "../data/plans";

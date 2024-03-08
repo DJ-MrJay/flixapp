@@ -54,25 +54,9 @@ const LoginScreen = () => {
 
       <KeyboardAvoidingView style={styles.keyboardContainer}>
         {loading ? (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "black",
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                color: "white",
-                fontSize: 15,
-                fontWeight: "500",
-              }}
-            >
-              Loading
-            </Text>
-            <ActivityIndicator size="large" color={"red"}/>
+          <View style={styles.loadingContainer}>
+            <Text style={styles.loadingText}>Loading</Text>
+            <ActivityIndicator size="large" color={"red"} />
           </View>
         ) : (
           <>
@@ -137,6 +121,18 @@ const styles = StyleSheet.create({
   keyboardContainer: {
     justifyContent: "center",
     flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "black",
+  },
+  loadingText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 15,
+    fontWeight: "500",
   },
   input: {
     padding: 15,

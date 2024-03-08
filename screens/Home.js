@@ -15,6 +15,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MovieItems } from "../Context";
 import Header from "../components/Header";
 import Trending from "../components/Trending";
+import { ScrollView } from "react-native";
+import Movies from "../components/Movies";
 
 const Home = () => {
   return (
@@ -24,8 +26,11 @@ const Home = () => {
         backgroundColor: "black",
       }}
     >
-      <Header />
-      <Trending />
+      <ScrollView>
+        <Header />
+        <Trending />
+        <Movies />
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -5,7 +5,6 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
   TextInput,
   Pressable,
 } from "react-native";
@@ -18,24 +17,24 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
+  const handleBackPress = () => {
+    navigation.navigate("Login", { email: input, password: password });
+  };
+
+  const handleRegisterPress = () => {
+    navigation.navigate("Plans", { email: input, password: password });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate("Login", { email: input, password: password });
-          }}
-          style={styles.backButton}
-        >
+        <Pressable onPress={handleBackPress} style={styles.backButton}>
           <AntDesign name="arrowleft" size={24} color="white" />
         </Pressable>
 
         <View style={styles.logoContainer}>
           <Image
-            style={{
-              height: 40,
-              resizeMode: "contain",
-            }}
+            style={styles.logo}
             source={require("../assets/images/Netflix_Logo.png")}
           />
         </View>
@@ -43,25 +42,9 @@ const RegisterScreen = () => {
         <AntDesign name="arrowright" size={24} color="transparent" />
       </View>
       <KeyboardAvoidingView style={styles.keyboardContainer}>
-        <Text
-          style={{
-            fontSize: 28,
-            fontWeight: "500",
-            color: "white",
-            marginBottom: 30,
-          }}
-        >
-          Ready to watch?
-        </Text>
+        <Text style={styles.heading}>Ready to watch?</Text>
 
-        <Text
-          style={{
-            fontSize: 17,
-            fontWeight: "400",
-            color: "white",
-            marginBottom: 30,
-          }}
-        >
+        <Text style={styles.subheading}>
           Enter your email and password to create an account.
         </Text>
 
@@ -86,11 +69,7 @@ const RegisterScreen = () => {
 
         <Pressable
           disabled={!input && !password}
-          onPress={() =>
-            navigation.navigate("Plans", {
-              email: input,
-              password: password })
-          }
+          onPress={handleRegisterPress}
           style={[
             styles.registerButton,
             {
@@ -118,17 +97,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
-  // backButton: {
-  //   marginRight: 10,
-  // },
+  backButton: {
+    marginRight: 10,
+  },
   logoContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
   },
+  logo: {
+    height: 40,
+    resizeMode: "contain",
+  },
   keyboardContainer: {
     justifyContent: "center",
     flex: 1,
+  },
+  heading: {
+    fontSize: 28,
+    fontWeight: "500",
+    color: "white",
+    marginBottom: 30,
+  },
+  subheading: {
+    fontSize: 17,
+    fontWeight: "400",
+    color: "white",
+    marginBottom: 30,
   },
   input: {
     padding: 15,

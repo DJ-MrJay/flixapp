@@ -1,32 +1,41 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Loading = () => {
   const navigation = useNavigation();
+
   useEffect(() => {
-    setTimeout(() => {
+    const navigateToHome = setTimeout(() => {
       navigation.navigate("Home");
     }, 1000);
+
+    return () => clearTimeout(navigateToHome);
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "black",
-        alignItems: "center",
-        justifyContent: "centre",
-      }}
-    >
+    <View style={styles.container}>
       <View>
-        <Text>Loading</Text>
+        <Text style={styles.loadingText}>Loading</Text>
         <ActivityIndicator size="large" color="red" />
       </View>
     </View>
   );
 };
 
-export default Loading;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loadingText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default Loading;
